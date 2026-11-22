@@ -1,4 +1,4 @@
---!native
+﻿--!native
 --!optimize 2
 --!divine-intellect
 -- https://discord.gg/wx4ThpAsmw
@@ -1740,7 +1740,7 @@ XML_Encoders = {
 			.. "</YO>"
 	end,
 
-	UniqueId = function(raw) --  Roblox Staff: It actually doesn’t have a value assigned outside of Roblox Studio and Open Cloud execution. UniqueIdLookupService
+	UniqueId = function(raw) --  Roblox Staff: It actually doesnâ€™t have a value assigned outside of Roblox Studio and Open Cloud execution. UniqueIdLookupService
 		-- 	--[[
 		-- 		UniqueId properties might be random everytime Studio saves a place file
 		-- 		and don't have a use right now outside of packages, which SSI doesn't
@@ -2164,8 +2164,8 @@ do
 
 	--[[
 		For more info:
-		- https://github.com/luau/UniversalSynSaveInstance/blob/main/Tools/NotScriptable-Related/Potentially%20Missing%20Properties%20Dumper/Potentially%20Missing%20Properties%20Dumper.luau
-		- https://github.com/luau/UniversalSynSaveInstance/blob/main/Tools/NotScriptable-Related/NotScriptable%20Dumper/NotScriptable%20Dumper.py
+		- https://github.com/luau/Chicken/blob/main/Tools/NotScriptable-Related/Potentially%20Missing%20Properties%20Dumper/Potentially%20Missing%20Properties%20Dumper.luau
+		- https://github.com/luau/Chicken/blob/main/Tools/NotScriptable-Related/NotScriptable%20Dumper/NotScriptable%20Dumper.py
 		]]
 	local NotScriptableFixes = {
 		Instance = {
@@ -3631,26 +3631,26 @@ do
 end
 
 --[=[
-    @class UniversalSynSaveInstance
+    @class Chicken
     This module saves the current place, one [Instance] (a Roblox object), or a
     group of [Instance]s to a `.rbxl`/`.rbxm` (binary) or `.rbxlx`/`.rbxmx` (XML)
     file.
 
     All options are optional. See
-    [UniversalSynSaveInstance.SaveInstanceOptions] for all options. Option names are not
-    case-sensitive. Old names from [UniversalSynSaveInstance.OptionsAliases] and
-    [UniversalSynSaveInstance.OptionsAliasesInverse] also work.
+    [Chicken.SaveInstanceOptions] for all options. Option names are not
+    case-sensitive. Old names from [Chicken.OptionsAliases] and
+    [Chicken.OptionsAliasesInverse] also work.
     The most common options are at the top of
-    [UniversalSynSaveInstance.SaveInstanceOptions]. Related options are grouped
+    [Chicken.SaveInstanceOptions]. Related options are grouped
     together, and advanced or rarely used options are at the bottom.
 ]=]
 
 --- @interface SaveInstanceOptions
---- Options for [UniversalSynSaveInstance.synsaveinstance]. All fields are optional.
+--- Options for [Chicken.synsaveinstance]. All fields are optional.
 --- The default is shown at the end of each field. Option names are not
 --- case-sensitive: `NilInstances`, `nilinstances`, and `nilInStaNces` are the
 --- same option. Unknown names are ignored.
---- @within UniversalSynSaveInstance
+--- @within Chicken
 --- @field mode string -- What to save. `optimized` saves the most important services (Workspace, Players, Lighting, ReplicatedStorage, StarterGui, and others). `full` saves everything under `game`. `scripts` saves only the top-level parts that contain a [LuaSourceContainer] (a script object). It saves the whole part, not just the script. Any other value saves only `ExtraInstances` (and `Object`, if set). If `Object` is set, `optimized` becomes `full`. ___Default:___ `optimized`
 --- @field Binary boolean -- Save a binary file (`.rbxl`/`.rbxm`) instead of an XML file (`.rbxlx`/`.rbxmx`). Binary files are smaller and load faster. If the executor cannot write binary data correctly, the script uses XML. Set the old option `XML = true` to force XML. ___Default:___ true
 --- @field CompressionMode string | boolean -- How to compress (make smaller) the binary file: `"zstd"`, `"lz4"`, or `false` for no compression. `true` means `"zstd"`. The old option `DisableCompression = true` means `false`. ___Default:___ `"zstd"`
@@ -3704,8 +3704,8 @@ end
 --- @field __DEBUG_MODE boolean | ((...any) -> ()) -- Print debug warnings for unusual cases. If you pass a function, the script uses it instead of `warn`. ___Default:___ false
 
 --- @interface OptionsAliases
---- @within UniversalSynSaveInstance
---- Map of old option names to new option names for the [UniversalSynSaveInstance.SaveInstanceOptions] table.
+--- @within Chicken
+--- Map of old option names to new option names for the [Chicken.SaveInstanceOptions] table.
 --- Format: `{ OldName = NewName }`
 --- The script reads these before your options, so you cannot change them after the script starts.
 --- @field AnonymousMode string -- `Anonymous`
@@ -3757,7 +3757,7 @@ end
 --- @field timeout string -- `DecompileTimeout`
 
 --- @interface OptionsAliasesInverse
---- @within UniversalSynSaveInstance
+--- @within Chicken
 --- Map of old option names that change a true/false value to the opposite.
 --- Format: `{ OldName = NewName }`
 --- The script flips the value before it uses it. `noscripts = true` sets `Decompile = false`.
@@ -3778,7 +3778,7 @@ end
 	Save the current place, one [Instance], or a group of [Instance]s. Example:
 	```lua
 	local Params = {
-		RepoURL = "https://raw.githubusercontent.com/luau/UniversalSynSaveInstance/main/",
+		RepoURL = "https://raw.githubusercontent.com/luau/Chicken/main/",
 		SSI = "saveinstance",
 	}
 
@@ -3795,9 +3795,9 @@ end
 	synsaveinstance(workspace.Model) -- Object; saved as a model
 	synsaveinstance({ workspace.Model, workspace.OtherModel }) -- ExtraInstances
 	```
-	@within UniversalSynSaveInstance
+	@within Chicken
 	@yields
-	@param ... table | SaveInstanceOptions | Instance | string -- [UniversalSynSaveInstance.SaveInstanceOptions] tables are combined in order. An executor's native `SaveInstanceOptions` object is read the same way as a table, but not every property may be supported, because the property set varies per executor. An [Instance] becomes `Object`. A string becomes `FilePath`; an empty string counts as not set. A list of Instances becomes `ExtraInstances` and sets `IsModel = true`. If you pass Instances directly and do not set `mode`, `mode` becomes invalid, so only those Instances are saved.
+	@param ... table | SaveInstanceOptions | Instance | string -- [Chicken.SaveInstanceOptions] tables are combined in order. An executor's native `SaveInstanceOptions` object is read the same way as a table, but not every property may be supported, because the property set varies per executor. An [Instance] becomes `Object`. A string becomes `FilePath`; an empty string counts as not set. A list of Instances becomes `ExtraInstances` and sets `IsModel = true`. If you pass Instances directly and do not set `mode`, `mode` becomes invalid, so only those Instances are saved.
 	@return string? -- The output file path when saving to a file, or `nil` when `Callback` or `CopyToClipboard` is used.
 ]=]
 
@@ -4651,7 +4651,7 @@ local function synsaveinstance(...)
 			return
 		end
 		LoadingThread = task.spawn(function()
-			local chars = { "|", "/", "—", "\\" }
+			local chars = { "|", "/", "â€”", "\\" }
 			local i = 0
 			while true do
 				while not IsLoading do
@@ -4995,7 +4995,7 @@ local function synsaveinstance(...)
 			assetSourceBlock = "--[" .. eq .. "[\n" .. recoveredSource .. "\n]" .. eq .. "]\n\n"
 		end
 
-		value = "-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n"
+		value = "-- Saved by Chicken (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n"
 			.. (hasLinkedSource and "-- Original Source: https://assetdelivery.roblox.com/v1/asset/?" .. (linkedKey and string.find(
 				linkedKey,
 				"%a"
@@ -6291,7 +6291,7 @@ local function synsaveinstance(...)
 
 				return table.concat({
 					"--[[\n",
-					"\t\tThank you for using UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n",
+					"\t\tThank you for using Chicken (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n",
 					recoveredNote,
 					flattenedNote,
 					ghpFailureHeader,
@@ -6747,7 +6747,7 @@ local function synsaveinstance(...)
 	end
 
 	if not ClassList then -- means first run
-		do -- * Load Region of Déjà Vu
+		do -- * Load Region of DÃ©jÃ  Vu
 			if gethiddenproperty then
 				local ard = Instance.new("AnimationRigData")
 

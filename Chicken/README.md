@@ -1,20 +1,20 @@
-# PLEASE USE https://github.com/luau/UniversalSynSaveInstance
+﻿# PLEASE USE https://github.com/luau/Chicken
 
 # Loadstring
 
 ```lua
 local Params = {
- RepoURL = "https://raw.githubusercontent.com/rbxlx/UniversalSynSaveInstance/main/",
+ RepoURL = "https://raw.githubusercontent.com/rbxlx/Chicken/main/",
  SSI = "saveinstance",
 }
 local synsaveinstance = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", true), Params.SSI)()
-local Options = {} -- Documentation here https://luau.github.io/UniversalSynSaveInstance/api/SynSaveInstance
+local Options = {} -- Documentation here https://luau.github.io/Chicken/api/SynSaveInstance
 synsaveinstance(Options)
 ```
 
 
 
-# 💖 Support Us & Our Work
+# ðŸ’– Support Us & Our Work
 
 <a href='https://ko-fi.com/M4M1JNH5G' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' title='KO-FI' /></a>
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M1JNH5G "KO-FI")

@@ -1,4 +1,4 @@
---!native
+﻿--!native
 -- https://discord.gg/wx4ThpAsmw
 
 local Params = {
@@ -575,7 +575,7 @@ local NotScriptableFixes = {
 	BasePart = { -- TODO: Find a way to integrate this into settings
 		Color3uint8 = "Color",
 	},
-} -- For more info: https://github.com/rbxlx/UniversalSynSaveInstance/blob/master/Tests/Potentially%20Missing%20Properties%20Tracker.luau
+} -- For more info: https://github.com/rbxlx/Chicken/blob/master/Tests/Potentially%20Missing%20Properties%20Tracker.luau
 
 do
 	-- TODO: More @ https://github.com/Dekkonot/rbx-instance-serializer/blob/master/src/API.lua#L19
@@ -868,7 +868,7 @@ local function synsaveinstance(CustomOptions)
 		DecompileJobless = false, --Description: Includes already decompiled code in the output. No new scripts are decompiled.
 		SaveNonCreatable = false, --Description: Includes non-serializable instances as Folder objects (Name is misleading as this is mostly a fix for certain NilInstances and isn't always related to NotCreatable)
 		RemovePlayerCharacters = true, -- Description: Ignore player characters while saving.
-		SavePlayers = false, -- This option does save players, it's just they won't show up in Studio and can only be viewed through the place file code (in text editor). More info at https://github.com/rbxlx/UniversalSynSaveInstance/issues/2
+		SavePlayers = false, -- This option does save players, it's just they won't show up in Studio and can only be viewed through the place file code (in text editor). More info at https://github.com/rbxlx/Chicken/issues/2
 		SaveCacheInterval = 0x1600, -- The less the more often it saves, but that would mean less performance due to constantly saving
 		ReadMe = true,
 
@@ -1562,7 +1562,7 @@ local function synsaveinstance(CustomOptions)
 											value = ldecompile(instance)
 										end
 									end
-									value = "-- Saved using UniversalSynSaveInstance https://discord.gg/wx4ThpAsmw\n\n"
+									value = "-- Saved using Chicken https://discord.gg/wx4ThpAsmw\n\n"
 										.. value
 								end
 
