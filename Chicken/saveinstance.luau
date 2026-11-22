@@ -35,10 +35,10 @@ local GLOBAL_ENV = getgenv and getgenv() or _G or shared
 
 -- * Single shared-env entry point: caches expensive per-session state (place name, decompile cache, ...)
 -- * so a full script reload doesn't have to rebuild it.
-local USSI = GLOBAL_ENV.USSI
-if not USSI then
-	USSI = {}
-	GLOBAL_ENV.USSI = USSI
+local CHKN = GLOBAL_ENV.CHKN
+if not CHKN then
+	CHKN = {}
+	GLOBAL_ENV.CHKN = CHKN
 end
 
 local service = setmetatable({}, {
@@ -138,7 +138,7 @@ local function index(self, index_name)
 	return self[index_name]
 end
 
-local cachedPlaceName = USSI.PlaceName
+local cachedPlaceName = CHKN.PlaceName
 
 local FULL_VERSION
 
@@ -158,10 +158,10 @@ end
 
 local CLIENT_VERSION = tonumber(string.match(FULL_VERSION, "%d+%.(%d+)")) or 9e9
 local __BREAK = "__BREAK" .. service.HttpService:GenerateGUID(false)
-local USSI_FOLDER = "ussi_cache/"
+local CHKN_FOLDER = "chicken_cache/"
 
 pcall(function()
-	makefolder(USSI_FOLDER)
+	makefolder(CHKN_FOLDER)
 end)
 
 local REFLECTION_FILTER = {
@@ -3153,7 +3153,7 @@ do
 	end
 
 	FetchAPI = function()
-		local FILE_NAME = USSI_FOLDER .. "API_DUMP.json"
+		local FILE_NAME = CHKN_FOLDER .. "API_DUMP.json"
 
 		local API_Dump
 
@@ -3807,10 +3807,10 @@ end
 -- *   string   -> FilePath option
 -- *   Instance -> Object option
 local function synsaveinstance(...)
-	if USSI.Running then
+	if CHKN.Running then
 		return error("saveinstance is already initializing another save", 2)
 	end
-	USSI.Running = true
+	CHKN.Running = true
 	-- do -- ? Causes issues on SirHurt (Kick lacking Capability "Consequences"), let threads operate on their default/preferred identity set by the developers
 	-- 	local setthreadidentity = global_container.setthreadidentity
 	-- 	if setthreadidentity then
@@ -4178,7 +4178,7 @@ local function synsaveinstance(...)
 			Icon = "rbxassetid://9072920609",
 		})
 
-		USSI.Running = nil
+		CHKN.Running = nil
 		return error(text, 2)
 	end
 
@@ -4336,7 +4336,7 @@ local function synsaveinstance(...)
 		return string.sub(string.gsub(string.gsub(string.gsub(str, "[^%w _]", ""), " +", " "), " +$", ""), 1, 240)
 	end
 
-	local EXEC_STATE_FILE = USSI_FOLDER .. "EXEC_STATE.json"
+	local EXEC_STATE_FILE = CHKN_FOLDER .. "EXEC_STATE.json"
 	local EXEC_STATE_KEY
 	local ExecState = {}
 	local GHP = {} -- ghp datatype -> "ok"|"failed"|"crashed"
@@ -4373,7 +4373,7 @@ local function synsaveinstance(...)
 	-- * Byte-mangling writers (NUL truncation, newline translation, non-ASCII
 	-- * stripping) corrupt a binary save while still reporting success (#216).
 	if OPTIONS.Binary and readfile and not (OPTIONS.Callback or OPTIONS.CopyToClipboard) then
-		local PROBE_PATH = USSI_FOLDER .. "WRITE_PROBE"
+		local PROBE_PATH = CHKN_FOLDER .. "WRITE_PROBE"
 		local probeChars = table.create(256)
 		for i = 0, 255 do
 			probeChars[i + 1] = string.char(i)
@@ -4463,7 +4463,7 @@ local function synsaveinstance(...)
 					pcall(service.MarketplaceService.GetProductInfoAsync, service.MarketplaceService, game.PlaceId)
 				if ok then
 					cachedPlaceName = info.Name
-					USSI.PlaceName = cachedPlaceName
+					CHKN.PlaceName = cachedPlaceName
 				end
 			end
 
@@ -4490,13 +4490,13 @@ local function synsaveinstance(...)
 			placename = placename .. filetype
 		end
 
-		local savedFiles = USSI.SavedFiles
+		local savedFiles = CHKN.SavedFiles
 		if not savedFiles then
 			savedFiles = {}
-			USSI.SavedFiles = savedFiles
+			CHKN.SavedFiles = savedFiles
 		end
 
-		USSI.Running = nil
+		CHKN.Running = nil
 
 		if savedFiles[placename] then -- ? AvoidFileOverwrite kinda messes with this, but shouldn't be an issue
 			return error("saveinstance is already saving to " .. placename, 2)
@@ -4763,11 +4763,11 @@ local function synsaveinstance(...)
 		OPTIONS.scriptcache = true
 	end
 	local ScriptCache = OPTIONS.scriptcache and getscriptbytecode
-	local ldeccache = ScriptCache and USSI.ScriptCache
+	local ldeccache = ScriptCache and CHKN.ScriptCache
 
 	if ScriptCache and not ldeccache then
 		ldeccache = {}
-		USSI.ScriptCache = ldeccache
+		CHKN.ScriptCache = ldeccache
 	end
 
 	local getbytecode
@@ -6455,14 +6455,14 @@ local function synsaveinstance(...)
 		for _, connection in Connections do
 			connection:Disconnect()
 		end
-		USSI.SavedFiles[placename] = nil
+		CHKN.SavedFiles[placename] = nil
 		if aborted then
 			if OPTIONS.BoostFPS then
 				pcall(service.RunService.Set3dRenderingEnabled, service.RunService, true)
 			end
-			if USSI.StatusGui then
-				USSI.StatusGui:Destroy()
-				USSI.StatusGui = nil
+			if CHKN.StatusGui then
+				CHKN.StatusGui:Destroy()
+				CHKN.StatusGui = nil
 			end
 		end
 	end
@@ -6499,8 +6499,8 @@ local function synsaveinstance(...)
 		OPTIONS.KillAllScripts = true
 	end
 
-	if OPTIONS.KillAllScripts and not USSI.KillAllScripts then
-		USSI.KillAllScripts = true
+	if OPTIONS.KillAllScripts and not CHKN.KillAllScripts then
+		CHKN.KillAllScripts = true
 		-- * partial credits @centerepic
 		game:GetService("ScriptContext"):SetTimeout(math.clamp(SaveCacheInterval * 0.000047, 20, 30))
 
@@ -6555,7 +6555,7 @@ local function synsaveinstance(...)
 
 	if OPTIONS.ShowStatus then
 		do
-			local Exists = USSI.StatusGui
+			local Exists = CHKN.StatusGui
 			if Exists then
 				Exists:Destroy()
 			end
@@ -6563,7 +6563,7 @@ local function synsaveinstance(...)
 
 		local StatusGui = Instance.new("ScreenGui")
 
-		USSI.StatusGui = StatusGui
+		CHKN.StatusGui = StatusGui
 
 		StatusGui.DisplayOrder = 2e9
 		pcall(function() -- ? Compatibility with level 2
@@ -6616,10 +6616,10 @@ local function synsaveinstance(...)
 			end
 		end
 	end
-	local kickSnapshot = USSI.KickSnapshot
+	local kickSnapshot = CHKN.KickSnapshot
 	if not kickSnapshot then
 		kickSnapshot = {}
-		USSI.KickSnapshot = kickSnapshot
+		CHKN.KickSnapshot = kickSnapshot
 	end
 
 	local function snapshotKick(LocalPlayer)
