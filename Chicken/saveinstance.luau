@@ -6652,7 +6652,7 @@ local function synsaveinstance(...)
 			snapshotKick(LocalPlayer)
 
 			local msg =
-				"[SAVEINSTANCE SAFEMODE]\nSaving..\nDo NOT leave\nLVL7 Executor RECOMMENDED for more SAFETY\nTo Disable this: SafeMode=false (Less Protection)"
+				"[CHICKEN SAFEMODE]\nSaving..\nDo NOT leave\nLVL7 Executor RECOMMENDED for more SAFETY\nTo Disable this: SafeMode=false (Less Protection)"
 			local function Kick()
 				LocalPlayer:Kick(msg)
 			end
