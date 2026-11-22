@@ -4992,7 +4992,7 @@ local function synsaveinstance(...)
 			assetSourceBlock = "--[" .. eq .. "[\n" .. recoveredSource .. "\n]" .. eq .. "]\n\n"
 		end
 
-		value = "-- Saved by Chicken (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n"
+		value = "-- Saved by Chicken (Join to Copy Games) https://discord.gg/redlinex\n\n"
 			.. (hasLinkedSource and "-- Original Source: https://assetdelivery.roblox.com/v1/asset/?" .. (linkedKey and string.find(
 				linkedKey,
 				"%a"
@@ -6288,7 +6288,7 @@ local function synsaveinstance(...)
 
 				return table.concat({
 					"--[[\n",
-					"\t\tThank you for using Chicken (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n",
+					"\t\tThank you for using Chicken (Join to Copy Games) https://discord.gg/redlinex\n\n",
 					recoveredNote,
 					flattenedNote,
 					ghpFailureHeader,
